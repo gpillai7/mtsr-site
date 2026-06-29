@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MTSR Aviation &amp; Marine — Integrated Air &amp; Sea Response</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@300;400;500;600&family=Spectral:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B2138;--abyss:#06121F;--steel:#13304F;--gold:#C2A06A;--gold-b:#D8BC8A;
+  --bronze:#8C6F4E;--sand:#E3D5BC;--mist:#AFC0D0;--cloud:#D9E0E7;--slate:#7E8B98;--paper:#F5F3EE;
+  --line:rgba(194,160,106,.26);--line-soft:rgba(175,192,208,.13);
+  --sans:'Inter',-apple-system,sans-serif;--serif:'Spectral',Georgia,serif;--mono:'IBM Plex Mono',monospace;--roman:'Cinzel',serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--navy);color:var(--cloud);font-family:var(--sans);font-weight:300;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--gold);color:var(--abyss)}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+
+/* nav */
+header{position:fixed;top:0;left:0;right:0;z-index:100;transition:.4s;border-bottom:1px solid transparent}
+header.scrolled{background:rgba(6,18,31,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:20px 40px;max-width:1280px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:14px}
+.brand svg{flex-shrink:0}
+.brand .wm{font-family:var(--roman);font-weight:600;font-size:22px;letter-spacing:.1em;color:var(--gold);line-height:1}
+.brand .ds{font-family:var(--mono);font-size:8px;letter-spacing:.34em;color:var(--mist);text-transform:uppercase;margin-top:3px}
+.menu{display:flex;gap:30px;align-items:center}
+.menu a{font-size:13px;letter-spacing:.02em;color:var(--cloud);transition:.25s;position:relative;padding:4px 0}
+.menu a:hover{color:var(--gold)}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:1px;width:0;background:var(--gold);transition:.3s}
+.menu a:hover::after{width:100%}
+.btn{font-family:var(--sans);font-size:12.5px;letter-spacing:.06em;border:1px solid var(--gold);color:var(--gold);padding:11px 22px;transition:.3s;cursor:pointer;background:none;text-transform:uppercase}
+.btn:hover{background:var(--gold);color:var(--abyss)}
+.btn.solid{background:var(--gold);color:var(--abyss)}
+.btn.solid:hover{background:var(--gold-b);border-color:var(--gold-b)}
+.burger{display:none}
+
+/* hero */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero .video{position:absolute;inset:0;background:
+   radial-gradient(120% 80% at 70% 20%,rgba(19,48,79,.55),transparent 60%),
+   linear-gradient(180deg,var(--abyss),var(--navy) 55%,var(--abyss));z-index:0}
+.hero .video::after{content:"";position:absolute;inset:0;background:
+   repeating-linear-gradient(180deg,transparent 0 3px,rgba(255,255,255,.012) 3px 4px);}
+.hero .sweep{position:absolute;left:-10%;top:50%;width:130%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.4;animation:sweepy 7s ease-in-out infinite}
+@keyframes sweepy{0%,100%{transform:translateY(-120px)}50%{transform:translateY(120px)}}
+.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.4fr .6fr;gap:40px;align-items:end;width:100%}
+.hero .ey{font-family:var(--mono);font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:30px;display:flex;align-items:center;gap:14px}
+.hero .ey::before{content:"";width:34px;height:1px;background:var(--gold)}
+.hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(38px,6vw,72px);line-height:1.05;color:var(--paper);letter-spacing:-.01em}
+.hero h1 b{font-weight:500;color:var(--gold)}
+.hero .datum{height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin:34px 0 26px;width:0;animation:draw 1.6s cubic-bezier(.2,.7,.2,1) .4s forwards}
+@keyframes draw{to{width:min(560px,80%)}}
+.hero p.sub{font-size:18px;color:var(--mist);max-width:560px;font-weight:300}
+.hero .cta{display:flex;gap:16px;margin-top:38px;flex-wrap:wrap}
+.hero .side{border-left:1px solid var(--line-soft);padding-left:26px;padding-bottom:10px}
+.hero .side .stat{margin-bottom:26px}
+.hero .side .num{font-family:var(--roman);font-weight:600;font-size:34px;color:var(--gold);line-height:1}
+.hero .side .lab{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--slate);margin-top:8px}
+.scrollcue{position:absolute;bottom:34px;left:40px;font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--slate);z-index:3;display:flex;align-items:center;gap:12px}
+.scrollcue .l{width:40px;height:1px;background:var(--slate);position:relative;overflow:hidden}
+.scrollcue .l::after{content:"";position:absolute;inset:0;background:var(--gold);animation:cue 2.4s infinite}
+@keyframes cue{0%{transform:translateX(-100%)}60%,100%{transform:translateX(100%)}}
+
+/* sections */
+section{padding:120px 0;border-bottom:1px solid var(--line-soft)}
+.eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.eyebrow::before{content:"";width:30px;height:1px;background:var(--gold)}
+h2{font-family:var(--serif);font-weight:300;font-size:clamp(30px,4.4vw,46px);color:var(--paper);letter-spacing:-.01em;line-height:1.12;max-width:780px}
+.lede{font-size:18px;color:var(--mist);max-width:680px;margin-top:18px}
+
+/* capabilities */
+.caps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);margin-top:56px}
+.cap{background:var(--navy);padding:40px 34px;transition:.4s;position:relative;min-height:230px}
+.cap:hover{background:var(--steel)}
+.cap .ic{margin-bottom:24px;color:var(--gold)}
+.cap .n{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--bronze);position:absolute;top:24px;right:30px}
+.cap h3{font-family:var(--sans);font-weight:500;font-size:18px;color:var(--paper);margin-bottom:12px}
+.cap p{font-size:14px;color:var(--mist);line-height:1.6}
+.cap .more{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--gold);margin-top:18px;opacity:0;transition:.4s}
+.cap:hover .more{opacity:1}
+
+/* split statement */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.split .imgblock{aspect-ratio:4/3;background:
+  linear-gradient(160deg,var(--steel),var(--abyss));border:1px solid var(--line-soft);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.split .imgblock .ph{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--slate);text-transform:uppercase;text-align:center}
+.split .imgblock svg{position:absolute;opacity:.16}
+.statement{font-family:var(--serif);font-weight:300;font-size:clamp(22px,2.8vw,30px);color:var(--paper);line-height:1.4}
+.statement b{color:var(--gold);font-weight:400}
+
+/* industries */
+.inds{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);margin-top:50px}
+.ind{background:var(--navy);padding:30px 26px;transition:.35s}
+.ind:hover{background:var(--steel)}
+.ind .t{font-size:15px;color:var(--paper);font-weight:400;margin-bottom:6px}
+.ind .d{font-size:12.5px;color:var(--mist)}
+
+/* fleet */
+.fleet{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:50px}
+.unit{border:1px solid var(--line-soft);overflow:hidden;transition:.4s}
+.unit:hover{border-color:var(--line)}
+.unit .vis{aspect-ratio:16/10;background:linear-gradient(155deg,var(--steel),var(--abyss));position:relative;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--line-soft)}
+.unit .vis svg{opacity:.45}
+.unit .vis .tag{position:absolute;top:14px;left:16px;font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--gold);text-transform:uppercase}
+.unit .body{padding:22px 24px}
+.unit h4{font-family:var(--sans);font-weight:500;font-size:16px;color:var(--paper);margin-bottom:6px}
+.unit .spec{font-family:var(--mono);font-size:11px;color:var(--mist);letter-spacing:.04em}
+
+/* safety band */
+.safety{background:var(--abyss);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.safety .row{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.creds{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);margin-top:30px}
+.cred{background:var(--abyss);padding:24px 26px}
+.cred .h{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:8px}
+.cred p{font-size:13px;color:var(--mist)}
+
+/* proof stats */
+.proof{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;text-align:center}
+.proof .num{font-family:var(--roman);font-weight:600;font-size:clamp(34px,5vw,52px);color:var(--gold);line-height:1}
+.proof .lab{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--mist);margin-top:12px}
+
+/* leadership institutional */
+.lead-block{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.lead-block .quote{font-family:var(--serif);font-weight:300;font-size:24px;color:var(--paper);line-height:1.45;border-left:2px solid var(--gold);padding-left:30px}
+
+/* CTA */
+.cta-band{text-align:center;padding:130px 0}
+.cta-band h2{margin:0 auto;text-align:center}
+.cta-band .lede{margin:18px auto 40px}
+.cta-band .cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+/* footer */
+footer{background:var(--abyss);padding:80px 0 40px;border-top:1px solid var(--line)}
+.fgrid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;margin-bottom:60px}
+.fcol h5{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.fcol a{display:block;font-size:13px;color:var(--mist);padding:5px 0;transition:.25s}
+.fcol a:hover{color:var(--paper)}
+.fbrand .wm{font-family:var(--roman);font-weight:600;font-size:24px;letter-spacing:.1em;color:var(--gold)}
+.fbrand .ds{font-family:var(--mono);font-size:9px;letter-spacing:.3em;color:var(--mist);text-transform:uppercase;margin:6px 0 18px}
+.fbrand p{font-size:13px;color:var(--slate);max-width:280px}
+.fbar{border-top:1px solid var(--line-soft);padding-top:26px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--slate);text-transform:uppercase;flex-wrap:wrap;gap:12px}
+
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:980px){
+  .wrap{padding:0 24px}.nav{padding:18px 24px}
+  .menu{display:none}.burger{display:block;color:var(--gold);background:none;border:1px solid var(--line);padding:8px 12px;font-family:var(--mono);font-size:11px}
+  .hero-grid{grid-template-columns:1fr}.hero .side{display:none}
+  .caps,.inds,.proof,.fleet{grid-template-columns:1fr 1fr}
+  .split,.safety .row,.lead-block{grid-template-columns:1fr;gap:34px}
+  .fgrid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){.caps,.inds,.proof,.fleet,.fgrid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.hero .datum{width:min(560px,80%)}}
+</style>
+</head>
+<body>
+<header id="hdr">
+  <div class="nav">
+    <a href="#" class="brand">
+      <svg width="34" height="34" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="44" stroke="#C2A06A" stroke-width="2"/><line x1="14" y1="50" x2="86" y2="50" stroke="#C2A06A" stroke-width="2"/><path d="M34 38 L50 26 L66 38" stroke="#C2A06A" stroke-width="2" fill="none"/><path d="M34 62 L50 74 L66 62" stroke="#C2A06A" stroke-width="2" fill="none"/></svg>
+      <div><div class="wm">MTSR</div><div class="ds">Aviation &amp; Marine</div></div>
+    </a>
+    <nav class="menu">
+      <a href="#capabilities">Capabilities</a>
+      <a href="#industries">Industries</a>
+      <a href="#fleet">Fleet</a>
+      <a href="#projects">Projects</a>
+      <a href="#safety">Safety</a>
+      <a href="#leadership">Leadership</a>
+      <a href="#contact" class="btn">Request a Briefing</a>
+    </nav>
+    <button class="burger">MENU</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="video"></div>
+  <div class="sweep"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="ey">Integrated Air &amp; Sea Response · Singapore</div>
+      <h1>Capability that is <b>ready before the call.</b></h1>
+      <div class="datum"></div>
+      <p class="sub">MTSR Aviation &amp; Marine unifies emergency aviation, high-speed maritime response and marine engineering under one aerospace-grade standard — for governments, ports, offshore operators and critical infrastructure across Southeast Asia.</p>
+      <div class="cta">
+        <a href="#capabilities" class="btn solid">View Capabilities</a>
+        <a href="#contact" class="btn">Request a Briefing</a>
+      </div>
+    </div>
+    <div class="side">
+      <div class="stat"><div class="num">24/7</div><div class="lab">Standing Readiness</div></div>
+      <div class="stat"><div class="num">2</div><div class="lab">Domains · Air &amp; Sea</div></div>
+      <div class="stat"><div class="num">35<span style="font-size:18px">yr+</span></div><div class="lab">Engineering Lineage</div></div>
+    </div>
+  </div>
+  <div class="scrollcue"><span class="l"></span>Scroll</div>
+</section>
+
+<!-- INTRO / ABOUT -->
+<section id="about">
+  <div class="wrap split">
+    <div class="reveal">
+      <div class="eyebrow">The Platform</div>
+      <p class="statement">MTSR is building Southeast Asia's first <b>integrated emergency response and critical-infrastructure platform</b> — where air and sea capability operate under a single command, to one standard of safety.</p>
+    </div>
+    <div class="imgblock reveal">
+      <svg width="80%" height="80%" viewBox="0 0 200 150"><g stroke="#C2A06A" stroke-width="1" fill="none"><circle cx="40" cy="150" r="60"/><circle cx="40" cy="150" r="100"/><circle cx="40" cy="150" r="140"/></g></svg>
+      <div class="ph">Hero film placeholder<br>— hangar at blue hour / vessel wake —</div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section id="capabilities">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Capabilities</div>
+      <h2>One organisation, across both domains.</h2>
+      <p class="lede">Fragmented providers leave gaps at the boundary of air and sea. MTSR closes them — every capability held to certified, aerospace-grade discipline.</p>
+    </div>
+    <div class="caps reveal">
+      <div class="cap"><span class="n">01</span><div class="ic"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" stroke="#C2A06A" stroke-width="1.5"><circle cx="20" cy="20" r="5"/><line x1="20" y1="15" x2="20" y2="3"/><line x1="20" y1="25" x2="20" y2="37"/><line x1="15" y1="20" x2="3" y2="20"/><line x1="25" y1="20" x2="37" y2="20"/></svg></div><h3>Emergency &amp; Medevac Aviation</h3><p>Rapid aeromedical and emergency aviation response, with certified aeromedical systems and crews maintained at continuous readiness.</p><div class="more">→ Explore</div></div>
+      <div class="cap"><span class="n">02</span><div class="ic"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" stroke="#C2A06A" stroke-width="1.5"><path d="M4 26 Q20 38 36 26 L32 16 L8 16 Z"/><line x1="20" y1="16" x2="20" y2="4"/></svg></div><h3>High-Speed Maritime Response</h3><p>Fast-response vessels for incident, recovery and offshore support — positioned for rapid mobilisation across ports and sea lanes.</p><div class="more">→ Explore</div></div>
+      <div class="cap"><span class="n">03</span><div class="ic"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" stroke="#C2A06A" stroke-width="1.5"><rect x="8" y="12" width="24" height="14" rx="1"/><line x1="20" y1="26" x2="20" y2="36"/><circle cx="14" cy="19" r="2"/><circle cx="26" cy="19" r="2"/></svg></div><h3>Underwater ROV Inspection</h3><p>Remote inspection, survey and intervention for subsea assets, hulls and infrastructure — documented to engineering standard.</p><div class="more">→ Explore</div></div>
+      <div class="cap"><span class="n">04</span><div class="ic"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" stroke="#C2A06A" stroke-width="1.5"><circle cx="20" cy="9" r="4"/><line x1="20" y1="13" x2="20" y2="34"/><line x1="8" y1="20" x2="32" y2="20"/><path d="M11 30 Q20 40 29 30"/></svg></div><h3>Marine Engineering &amp; Husbandry</h3><p>Ship husbandry, repair and marine engineering support, applying certification-grade rigour to every intervention afloat or alongside.</p><div class="more">→ Explore</div></div>
+      <div class="cap"><span class="n">05</span><div class="ic"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" stroke="#C2A06A" stroke-width="1.5"><rect x="6" y="14" width="10" height="14"/><rect x="18" y="10" width="10" height="18"/><line x1="4" y1="28" x2="34" y2="28"/><line x1="30" y1="10" x2="30" y2="28"/></svg></div><h3>Offshore &amp; Port Logistics</h3><p>Offshore logistics, port services and energy support — crew, cargo and equipment movement engineered around uptime.</p><div class="more">→ Explore</div></div>
+      <div class="cap"><span class="n">06</span><div class="ic"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" stroke="#C2A06A" stroke-width="1.5"><path d="M20 4 L34 10 V20 C34 30 20 36 20 36 C20 36 6 30 6 20 V10 Z"/><path d="M14 20 l4 4 l8 -9"/></svg></div><h3>Critical Infrastructure &amp; Defence Support</h3><p>Response and engineering support for refineries, defence organisations and critical national infrastructure — discreet and accountable.</p><div class="more">→ Explore</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- INTEGRATED STATEMENT -->
+<section>
+  <div class="wrap split">
+    <div class="imgblock reveal" style="order:-1">
+      <div class="ph">Operations imagery placeholder<br>— ROV breaking surface / console glow —</div>
+    </div>
+    <div class="reveal">
+      <div class="eyebrow">The MTSR Standard</div>
+      <p class="statement">We do not promise to react quickly. We ensure the <b>capability is already there</b> — built, certified, crewed and maintained, long before the day it is needed.</p>
+      <div class="cta" style="margin-top:34px;display:flex;gap:16px"><a href="#safety" class="btn">Our Standards</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section id="industries">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Industries Served</div>
+      <h2>Trusted where the margin for error is zero.</h2>
+    </div>
+    <div class="inds reveal">
+      <div class="ind"><div class="t">Government &amp; Agencies</div><div class="d">National response, continuity and critical-mission support.</div></div>
+      <div class="ind"><div class="t">Ports &amp; Maritime Authorities</div><div class="d">Incident response, husbandry and port-side engineering.</div></div>
+      <div class="ind"><div class="t">Offshore &amp; Energy</div><div class="d">Logistics, inspection and emergency support for assets at sea.</div></div>
+      <div class="ind"><div class="t">Refineries &amp; Infrastructure</div><div class="d">Response readiness for critical industrial facilities.</div></div>
+      <div class="ind"><div class="t">Defence Organisations</div><div class="d">Discreet engineering and operational support capability.</div></div>
+      <div class="ind"><div class="t">Marine Contractors</div><div class="d">Specialist marine engineering and ROV partnership.</div></div>
+      <div class="ind"><div class="t">Shipping &amp; Operators</div><div class="d">Husbandry, inspection and rapid maritime response.</div></div>
+      <div class="ind"><div class="t">Multinationals</div><div class="d">Aeromedical, executive aviation and duty-of-care cover.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FLEET -->
+<section id="fleet">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Fleet &amp; Assets</div>
+      <h2>Maintained to aerospace-grade standard.</h2>
+      <p class="lede">Every asset is certified, audited and held at a defined state of readiness. Representative classes shown — full datasheets available on request.</p>
+    </div>
+    <div class="fleet reveal">
+      <div class="unit"><div class="vis"><span class="tag">Air · Rotary</span><svg width="80" height="60" viewBox="0 0 80 60" fill="none" stroke="#C2A06A" stroke-width="1.5"><line x1="10" y1="14" x2="70" y2="14"/><ellipse cx="40" cy="34" rx="22" ry="9"/><line x1="40" y1="14" x2="40" y2="25"/><line x1="58" y1="34" x2="74" y2="30"/><line x1="40" y1="43" x2="40" y2="50"/><line x1="32" y1="50" x2="48" y2="50"/></svg></div><div class="body"><h4>Aeromedical Rotary</h4><div class="spec">MEDEVAC · ICU-CONFIG · 24/7</div></div></div>
+      <div class="unit"><div class="vis"><span class="tag">Sea · Fast Response</span><svg width="90" height="50" viewBox="0 0 90 50" fill="none" stroke="#C2A06A" stroke-width="1.5"><path d="M8 30 L80 30 L70 42 L18 42 Z"/><line x1="30" y1="30" x2="34" y2="18"/><line x1="34" y1="18" x2="58" y2="18"/><line x1="58" y1="18" x2="58" y2="30"/></svg></div><div class="body"><h4>Fast Response Craft</h4><div class="spec">HIGH-SPEED · SAR-CAPABLE</div></div></div>
+      <div class="unit"><div class="vis"><span class="tag">Subsea · Inspection</span><svg width="70" height="56" viewBox="0 0 70 56" fill="none" stroke="#C2A06A" stroke-width="1.5"><rect x="14" y="16" width="42" height="26" rx="2"/><circle cx="26" cy="29" r="4"/><circle cx="44" cy="29" r="4"/><line x1="35" y1="16" x2="35" y2="6"/><line x1="20" y1="42" x2="20" y2="50"/><line x1="50" y1="42" x2="50" y2="50"/></svg></div><div class="body"><h4>Inspection-Class ROV</h4><div class="spec">SUBSEA · SURVEY · INTERVENTION</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SAFETY BAND -->
+<section id="safety" class="safety">
+  <div class="wrap row">
+    <div class="reveal">
+      <div class="eyebrow">Safety &amp; Standards</div>
+      <h2>Safety is the standard, not the target.</h2>
+      <p class="lede">MTSR applies the discipline of aircraft certification across every domain it operates. Safety is designed in, audited, and never traded against speed or cost.</p>
+    </div>
+    <div class="reveal">
+      <div class="creds">
+        <div class="cred"><div class="h">Certification</div><p>Operations and engineering aligned to recognised aviation and maritime certification standards.</p></div>
+        <div class="cred"><div class="h">Audit</div><p>Independent and internal audit of readiness, maintenance and procedure.</p></div>
+        <div class="cred"><div class="h">Readiness</div><p>Defined, monitored states of readiness across all assets and crews, 24/7.</p></div>
+        <div class="cred"><div class="h">Accountability</div><p>Clear command, documented method, and ownership at the moment that matters.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="projects">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;margin-bottom:70px">
+      <div class="eyebrow" style="justify-content:center">Track Record</div>
+      <h2 style="margin:0 auto">Capability, demonstrated.</h2>
+    </div>
+    <div class="proof reveal">
+      <div><div class="num">24/7</div><div class="lab">Continuous Readiness</div></div>
+      <div><div class="num">2</div><div class="lab">Integrated Domains</div></div>
+      <div><div class="num">100%</div><div class="lab">Certified Operations</div></div>
+      <div><div class="num">SE&nbsp;Asia</div><div class="lab">Operating Region</div></div>
+    </div>
+    <p class="reveal" style="text-align:center;color:var(--slate);font-family:var(--mono);font-size:11px;letter-spacing:.16em;margin-top:50px;text-transform:uppercase">Project sheets &amp; case studies available under NDA on request</p>
+  </div>
+</section>
+
+<!-- LEADERSHIP (institutional) -->
+<section id="leadership">
+  <div class="wrap lead-block">
+    <div class="reveal">
+      <div class="eyebrow">Leadership</div>
+      <p class="quote">"Some capabilities cannot be summoned at short notice. They have to exist beforehand."</p>
+      <p class="lede" style="margin-top:26px">MTSR is led by an engineering team with deep international experience spanning military and commercial aviation, certification, aeromedical systems and marine engineering. That lineage underpins our standard — but the institution, not any individual, is the capability.</p>
+    </div>
+    <div class="reveal">
+      <div style="border:1px solid var(--line-soft);padding:40px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:24px">Built On</div>
+        <div style="display:grid;gap:18px">
+          <div style="display:flex;gap:16px;align-items:baseline"><span style="font-family:var(--mono);color:var(--bronze);font-size:12px">01</span><span style="font-size:14px;color:var(--cloud)">35+ years of international aviation engineering &amp; certification leadership</span></div>
+          <div style="display:flex;gap:16px;align-items:baseline"><span style="font-family:var(--mono);color:var(--bronze);font-size:12px">02</span><span style="font-size:14px;color:var(--cloud)">Military, commercial &amp; medical aviation programme experience</span></div>
+          <div style="display:flex;gap:16px;align-items:baseline"><span style="font-family:var(--mono);color:var(--bronze);font-size:12px">03</span><span style="font-size:14px;color:var(--cloud)">Cross-domain engineering discipline applied to air and sea</span></div>
+          <div style="display:flex;gap:16px;align-items:baseline"><span style="font-family:var(--mono);color:var(--bronze);font-size:12px">04</span><span style="font-size:14px;color:var(--cloud)">An institutional structure built for the long term</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="cta-band">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow" style="justify-content:center">Engage MTSR</div>
+      <h2>Discuss your readiness requirement.</h2>
+      <p class="lede">Request a confidential briefing on integrated air-and-sea response capability for your organisation.</p>
+      <div class="cta">
+        <a href="mailto:operations@mtsr.sg" class="btn solid">Request a Briefing</a>
+        <a href="#" class="btn">Download Capability Statement</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div class="fcol fbrand">
+        <div class="wm">MTSR</div>
+        <div class="ds">Aviation &amp; Marine</div>
+        <p>Southeast Asia's integrated air-and-sea emergency response and critical-infrastructure institution.</p>
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--bronze);margin-top:20px">01°17′N · 103°50′E · SINGAPORE</div>
+      </div>
+      <div class="fcol"><h5>Capabilities</h5><a href="#">Emergency Aviation</a><a href="#">Maritime Response</a><a href="#">Marine Engineering</a><a href="#">ROV Inspection</a><a href="#">Offshore Logistics</a></div>
+      <div class="fcol"><h5>Company</h5><a href="#">About</a><a href="#">Industries</a><a href="#">Fleet</a><a href="#">Safety</a><a href="#">Leadership</a></div>
+      <div class="fcol"><h5>Contact</h5><a href="mailto:operations@mtsr.sg">operations@mtsr.sg</a><a href="#">Request a Briefing</a><a href="#">Tender Enquiries</a><a href="#">Media</a></div>
+    </div>
+    <div class="fbar">
+      <span>© 2026 MTSR Aviation &amp; Marine · Singapore</span>
+      <span>Ready before the call.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const hdr=document.getElementById('hdr');
+addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>40));
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}}),{threshold:.14});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
